@@ -41,3 +41,6 @@ example
 # generated native folders
 /ios
 /android
+
+# Arquivo de entrega (enviado separadamente, nao versionado)
+ENTREGA.txt
