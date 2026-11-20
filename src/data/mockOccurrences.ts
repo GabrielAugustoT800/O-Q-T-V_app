@@ -1,0 +1,105 @@
+import type { Occurrence } from '@/types/Occurrence';
+import { classifyOccurrence } from '@/utils/classifyOccurrence';
+
+type SeedOccurrence = Omit<Occurrence, 'alertLevel'>;
+
+const seed: SeedOccurrence[] = [
+  {
+    id: '001',
+    title: 'Passagem registrada na recepção',
+    description: 'Simulação: pessoa com tag BLE válida e nível compatível passou pela recepção.',
+    area: 'Area 1',
+    occurrenceType: 'normal',
+    status: 'resolved',
+    timestamp: '2026-03-02T08:15:00.000Z',
+    personDetected: true,
+    bleTagId: 'TAG101',
+    authorizationLevel: 1,
+  },
+  {
+    id: '002',
+    title: 'Acesso com autorização insuficiente',
+    description: 'Simulação: tag associada a nível 2 registrada na sala restrita.',
+    area: 'Area 3',
+    occurrenceType: 'insufficient_authorization',
+    status: 'open',
+    timestamp: '2026-03-02T09:40:00.000Z',
+    personDetected: true,
+    bleTagId: 'TAG202',
+    authorizationLevel: 2,
+  },
+  {
+    id: '003',
+    title: 'Pessoa detectada sem tag associada',
+    description: 'Simulação: câmera detectou uma pessoa sem tag BLE correspondente no corredor.',
+    area: 'Area 2',
+    occurrenceType: 'person_without_id',
+    status: 'under_review',
+    timestamp: '2026-03-02T10:05:00.000Z',
+    personDetected: true,
+  },
+  {
+    id: '004',
+    title: 'Tag não cadastrada na recepção',
+    description: 'Simulação: receptor BLE leu um identificador ausente do cadastro fictício.',
+    area: 'Area 1',
+    occurrenceType: 'unknown_tag',
+    status: 'resolved',
+    timestamp: '2026-03-02T11:20:00.000Z',
+    personDetected: false,
+    bleTagId: 'TAG999',
+  },
+  {
+    id: '005',
+    title: 'Associação inconclusiva com nível incompatível',
+    description:
+      'Simulação: associação entre pessoa e tag não confirmada; tag de nível 1 registrada na sala restrita.',
+    area: 'Area 3',
+    occurrenceType: 'inconclusive_association',
+    status: 'under_review',
+    timestamp: '2026-03-02T13:10:00.000Z',
+    personDetected: true,
+    bleTagId: 'TAG105',
+    authorizationLevel: 1,
+  },
+  {
+    id: '006',
+    title: 'Falha de comunicação com a câmera',
+    description: 'Simulação: o dispositivo de captura da sala restrita parou de responder.',
+    area: 'Area 3',
+    occurrenceType: 'communication_failure',
+    status: 'open',
+    timestamp: '2026-03-02T14:30:00.000Z',
+    personDetected: false,
+  },
+  {
+    id: '007',
+    title: 'Divergência facial para revisão',
+    description:
+      'Simulação: a comparação facial fictícia divergiu do cadastro associado à tag. Requer revisão humana.',
+    area: 'Area 2',
+    occurrenceType: 'facial_divergence',
+    status: 'under_review',
+    timestamp: '2026-03-02T15:45:00.000Z',
+    personDetected: true,
+    bleTagId: 'TAG210',
+    authorizationLevel: 2,
+  },
+  {
+    id: '008',
+    title: 'Movimentação normal no corredor técnico',
+    description: 'Simulação: pessoa com tag de nível 3 transitou pelo corredor técnico.',
+    area: 'Area 2',
+    occurrenceType: 'normal',
+    status: 'open',
+    timestamp: '2026-03-02T16:20:00.000Z',
+    personDetected: true,
+    bleTagId: 'TAG301',
+    authorizationLevel: 3,
+  },
+];
+
+export const mockOccurrences: Occurrence[] = seed.map((item) => ({
+  ...item,
+  alertLevel: classifyOccurrence(item),
+}));

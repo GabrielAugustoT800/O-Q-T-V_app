@@ -1,5 +1,5 @@
 {
-  "name": "oqtv-tmp",
+  "name": "oqtv-mobile",
   "version": "1.0.0",
   "main": "expo-router/entry",
   "dependencies": {
@@ -36,7 +36,8 @@
   },
   "scripts": {
     "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
+    "typecheck": "tsc --noEmit",
+    "verify:mocks": "node --experimental-strip-types --no-warnings --import ./scripts/registerTs.mjs scripts/verifyMocks.ts",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
