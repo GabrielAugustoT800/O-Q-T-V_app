@@ -11,4 +11,6 @@ export const colors = {
   alertAtypical: '#E0A63B',
   alertCritical: '#D95550',
   error: '#D95550',
+  overlay: 'rgba(28, 29, 32, 0.8)',
+  scanline: 'rgba(158, 162, 168, 0.12)',
 } as const;
