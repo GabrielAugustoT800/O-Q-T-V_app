@@ -102,7 +102,7 @@ Toda verificação de papel na UI passa por `can()` — nunca comparações dire
 
 ## Central de câmeras
 
-Cada tile mostra a área, a câmera (CAM-01 a CAM-03), relógio com atualização a cada segundo e a contagem de ocorrências abertas. Se a área tiver uma ocorrência aberta de **falha de comunicação**, o tile exibe `SEM SINAL`. Caso contrário, exibe vídeo simulado em loop (placeholder até os vídeos reais serem fornecidos na Fase 10).
+Cada tile mostra a área, a câmera (CAM-01 a CAM-03), relógio com atualização a cada segundo e a contagem de ocorrências abertas. Se a área tiver uma ocorrência aberta de **falha de comunicação**, o tile exibe `SEM SINAL`. Caso contrário, exibe um placeholder "AGUARDANDO FEED" (vídeos das câmeras são opcionais e podem ser adicionados posteriormente).
 
 ## Observações importantes
 
@@ -121,7 +121,7 @@ app/                          # Navegação (Expo Router)
 ├── index.tsx                 # Redireciona: sessão ? /(tabs)/cameras : /login
 ├── login.tsx                 # Login demonstrativo
 ├── (tabs)/                   # Abas protegidas por sessão
-│   ├── _layout.tsx           # Cabeçalho com usuario/papel + Sair
+│   ├── _layout.tsx           # Cabeçalho com usuário/papel + Sair
 │   ├── cameras.tsx           # Central de câmeras
 │   └── occurrences.tsx       # Listagem de ocorrências
 ├── occurrence/
@@ -129,7 +129,7 @@ app/                          # Navegação (Expo Router)
 │   └── [id].tsx              # Detalhes da ocorrência
 └── camera/
     └── [area].tsx            # Visão ampliada de uma área
-assets/                       # Imagens, ícones e vídeos (videos só na Fase 10)
+assets/                       # Imagens, ícones e vídeos das câmeras
 src/
 ├── components/               # Componentes reutilizáveis
 │   ├── OccurrenceCard.tsx    # Card de listagem de ocorrências
@@ -153,29 +153,22 @@ src/
 │   └── CameraAreaScreen.tsx
 ├── context/                  # AuthProvider, OccurrencesProvider
 ├── types/                    # User.ts, Occurrence.ts, Camera.ts
-├── data/                     # Mocks de usuarios, ocorrencias, cameras, labels.ts
+├── data/                     # Mocks de usuários, ocorrências, câmeras, labels.ts
 ├── services/                 # authService, occurrenceService, storageService, permissions
 ├── utils/                    # validateOccurrence, classifyOccurrence, authorization, validators
-└── theme/                    # cores e espacamentos
+└── theme/                    # cores e espaçamentos
 ```
 
 ## Decisões de projeto
 
-- Scaffold inicial criado com `create-expo-app` no diretório temporário e movido para a raiz do repositório, mantendo a estrutura do guia (raiz `app/`) ao invés da estrutura `src/app` do template SDK 58.
+- Scaffold inicial criado com `create-expo-app` no diretório temporário e movido para a raiz do repositório, mantendo a estrutura definida nas regras de projeto (raiz `app/`) ao invés da estrutura `src/app` do template SDK 58.
 - Toda validação é manual em `src/utils/validators.ts` (sem bibliotecas de formulário).
 - Datas formatadas com `toLocaleString('pt-BR')` (sem bibliotecas de data).
 - Confirmações usam `ConfirmDialog` próprio, não `Alert.alert` (que não funciona bem na web).
 
-- Componentes extras além da lista do guia: `ConfirmDialog` (confirmação sem `Alert.alert`) e `FlashMessage` (confirmação breve ao salvar). Utilitários extras: `formatDate.ts` e `sortOccurrences.ts`.
+- Componentes extras além da lista de requisitos: `ConfirmDialog` (confirmação sem `Alert.alert`) e `FlashMessage` (confirmação breve ao salvar). Utilitários extras: `formatDate.ts` e `sortOccurrences.ts`.
 - O supervisor altera o status por chips (Aberto / Em análise / Resolvido), permitindo também reabrir uma ocorrência.
-- Os vídeos da Fase 10 ainda não foram adicionados: todas as câmeras usam `source: null` e exibem "AGUARDANDO FEED".
-
-## Histórico de commits
-
-1. `feat: Fase 1 - Ambiente`
-2. `feat: Fase 3 - Persistência e serviços` (inclui também a Fase 2 - modelagem e dados)
-3. `feat: Fases 4-9 - contextos, navegacao, telas e central de cameras`
-4. `docs: Fase 11 - README e ENTREGA`
+- As câmeras exibem placeholder "AGUARDANDO FEED" por padrão. Vídeos simulados podem ser adicionados posteriormente em `src/data/cameras.ts`.
 
 ## Verificação
 
@@ -185,6 +178,6 @@ npm run verify:mocks                 # cobertura de tipos, áreas, status e nív
 npx expo export --platform web       # empacota todas as rotas para a web
 ```
 
-Os testes manuais da tabela da Fase 11 (login, cadastro, persistência etc.) ainda precisam ser executados no navegador e no Expo Go, com os resultados registrados aqui.
+Os testes manuais (login, cadastro, persistência etc.) ainda precisam ser executados no navegador e no Expo Go antes da entrega, com os resultados registrados na seção correspondente.
 
 ---
