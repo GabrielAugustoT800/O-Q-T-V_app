@@ -188,5 +188,3 @@ npx expo export --platform web       # empacota todas as rotas para a web
 Os testes manuais da tabela da Fase 11 (login, cadastro, persistência etc.) ainda precisam ser executados no navegador e no Expo Go, com os resultados registrados aqui.
 
 ---
-
-**ENTREGA.txt** também foi criado neste repositório com o modelo solicitado para preenchimento dos integrantes, repositório e vídeo demonstrativo.
